@@ -4,14 +4,15 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { UserRepository } from 'src/repository/user.repository';
+import { HashingService } from 'src/hashing/hashing.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) { }
-  createUser(userdata: CreateUserDto) {
-
-    const user = this.userRepository.createAndSaveUser(userdata)
-    return user;
+  constructor(private readonly userRepository: UserRepository,
+    private readonly hashingService: HashingService
+  ) { }
+  createUser(){
+    
   }
 
   findAll() {

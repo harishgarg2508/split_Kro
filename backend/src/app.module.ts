@@ -12,6 +12,7 @@ import { CategoryModule } from './category/category.module';
 import { GroupmembersModule } from './groupmembers/groupmembers.module';
 import { ExpenseParticipantModule } from './expense-participant/expense-participant.module';
 import { SettlementModule } from './settlement/settlement.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [UserModule,
@@ -23,7 +24,8 @@ import { SettlementModule } from './settlement/settlement.module';
     CategoryModule,
     GroupmembersModule,
     ExpenseParticipantModule,
-    SettlementModule
+    SettlementModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

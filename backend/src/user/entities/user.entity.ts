@@ -1,9 +1,11 @@
 import { ExpenseParticipant } from "src/expense-participant/entities/expense-participant.entity";
 import { Groupmember } from "src/groupmembers/entities/groupmember.entity";
 import { Settlement } from "src/settlement/entities/settlement.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
+
 
 @Entity('user')
+@Unique(['email','isActive'])
 export class User {
 
     @PrimaryGeneratedColumn()
@@ -12,7 +14,7 @@ export class User {
     @Column()
     name: string
 
-    @Column({unique:true})
+    @Column()
     email: string
 
     @Column()
@@ -22,7 +24,7 @@ export class User {
     avatar?: string
 
     @Column({default:true})
-    isactive: boolean
+    isActive: boolean
 
     @CreateDateColumn()
     createdAt: Date

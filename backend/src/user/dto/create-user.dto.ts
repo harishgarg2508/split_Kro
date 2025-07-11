@@ -13,13 +13,7 @@ export class CreateUserDto {
         @Min(3,{message:"must be atleast 3 character long"})
         password: string
     
-        @IsString()
-        @IsOptional()
-        avatar: string
-    
-        @IsBoolean()
-        @IsOptional()
-        isactive: boolean
+       
 
     
     
