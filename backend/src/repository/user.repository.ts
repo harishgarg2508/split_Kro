@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { SignUpDto } from "src/auth/dto/signup.dto";
 import { CreateUserDto } from "src/user/dto/create-user.dto";
 import { User } from "src/user/entities/user.entity";
 import { DataSource, Repository } from "typeorm";
@@ -9,7 +10,7 @@ export class UserRepository extends Repository<User> {
         super(User, dataSource.createEntityManager());
     }
 
-    async createAndSaveUser(userdata:CreateUserDto){
+    async createAndSaveUser(userdata:SignUpDto){
 
        const user =  this.create(userdata)
         await this.save(user)

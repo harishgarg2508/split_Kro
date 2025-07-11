@@ -4,9 +4,7 @@ import { IsBoolean, IsDate, IsOptional, IsString, Min, min } from "class-validat
 export class SignUpDto {
 
 
-    @IsString()
-    name: string
-
+    @IsOptional()
     @IsString()
     email: string
 

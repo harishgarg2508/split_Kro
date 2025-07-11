@@ -10,26 +10,38 @@ export class AuthService {
       private readonly hashingService: HashingService
     ) { }
    async createUser(userdata: SignUpDto) {
-      const{password,...rest} = userdata
+      const{password,email} = userdata
+      const existingUser = await this.userRepository.findOne({where:{email}})
+     
+        if(existingUser){
+          throw new UnauthorizedException(`User with email ${email} already exists`)
+        }
       const hashedpassword  = await this.hashingService.hashPassword(password)
-      const userWithHashPassword = {password:hashedpassword,...rest}
+      const userWithHashPassword = {password:hashedpassword,email,}
       const user = this.userRepository.createAndSaveUser(userWithHashPassword)
       return user;
     }
 
     async loginUser(credentials:LoginDto){
       const{email,password} = credentials
+      console.log("credentials:", credentials)
       const user = await this.userRepository.findOne({where:{email}})
       if(!user){
         throw new NotFoundException(`user with ${email} not found`)
       }
 
+      
       const hashedpassword  = await this.hashingService.comparePassword(password,user.password)
+      console.log("password match")
       if(!hashedpassword){
         throw new UnauthorizedException('Invalid credentials')
       }
 
-      return "Login Successful"
+      return {
+        email: user.email,
+        displayName: user.name,
+       
+      }
 
     }
 
