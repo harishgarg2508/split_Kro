@@ -16,6 +16,7 @@ export class AuthController {
   loginUser(@Body() createUserDto: CreateUserDto) {
     return this.authService.loginUser(createUserDto);
   }
+  
   @Get()
   findAll() {
     return this.authService.findAll();

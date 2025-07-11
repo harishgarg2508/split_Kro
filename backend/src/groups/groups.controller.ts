@@ -7,7 +7,7 @@ import { UpdateGroupDto } from './dto/update-group.dto';
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createGroupDto: CreateGroupDto) {
     return this.groupsService.create(createGroupDto);
   }
