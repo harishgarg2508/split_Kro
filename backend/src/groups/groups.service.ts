@@ -1,11 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { UpdateGroupDto } from './dto/update-group.dto';
+import { GroupsRepository } from 'src/repository/groups.repository';
+import { CategoryRepository } from 'src/repository/category.repository';
 
 @Injectable()
 export class GroupsService {
-  create(createGroupDto: CreateGroupDto) {
-    return 'This action adds a new group';
+  constructor(private readonly groupsRepository: GroupsRepository,
+    private readonly categoryRepository:CategoryRepository
+  ) {}
+  async create(groupDetails: CreateGroupDto) {
+
+    const {groupName,categoryId} = groupDetails
+    const category = await this.categoryRepository.findOne({where:{id:categoryId}})
+    if(!category){
+      throw new NotFoundException('Category not found')
+    }
+    return this.groupsRepository.createAndSaveGroup(groupName,category)
+
+    
   }
 
   findAll() {

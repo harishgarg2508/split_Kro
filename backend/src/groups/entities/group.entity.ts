@@ -11,16 +11,16 @@ export class Groups {
 
     @Column()
     groupName: string
-
-    @ManyToOne(() => Category, category => category.groups)
-    category: Category
-
+    
     @CreateDateColumn()
     createdAt: Date
-
+    
     @DeleteDateColumn()
     deletedAt: Date
-
+   
+    @ManyToOne(() => Category, category => category.groups)
+    category: Category
+    
     @OneToMany(() => Groupmember, groupMember => groupMember.group)
     groupsMember: Groupmember[]
 

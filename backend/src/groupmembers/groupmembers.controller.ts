@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { GroupmembersService } from './groupmembers.service';
 import { CreateGroupmemberDto } from './dto/create-groupmember.dto';
 import { UpdateGroupmemberDto } from './dto/update-groupmember.dto';
@@ -8,8 +16,13 @@ export class GroupmembersController {
   constructor(private readonly groupmembersService: GroupmembersService) {}
 
   @Post()
-  create(@Body() createGroupmemberDto: CreateGroupmemberDto) {
-    return this.groupmembersService.create(createGroupmemberDto);
+  addUserToGroup(@Body() data: CreateGroupmemberDto) {
+    return this.groupmembersService.addUserToGroup(data);
+  }
+
+  @Delete('remove')
+  removeUserFromGroup(@Body() data: CreateGroupmemberDto) {
+    return this.groupmembersService.removeUserFromGroup(data);
   }
 
   @Get()
@@ -23,7 +36,10 @@ export class GroupmembersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGroupmemberDto: UpdateGroupmemberDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateGroupmemberDto: UpdateGroupmemberDto,
+  ) {
     return this.groupmembersService.update(+id, updateGroupmemberDto);
   }
 
