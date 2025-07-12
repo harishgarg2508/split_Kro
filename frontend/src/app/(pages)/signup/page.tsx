@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -7,49 +7,24 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormInterface, userSchema } from "@/app/utils";
 import { Toaster, toast } from 'sonner';
 import { useRouter } from "next/navigation";
-
-
+import { useAppDispatch } from "@/app/redux/hooks";
+import { signupUser } from "@/app/redux/slices/signup.Slice";
 
 export default function SignupPage() {
-  const [userData, setUserData] = useState<any>(null);
-
-  const {register,handleSubmit,formState: { errors },reset,} = useForm<FormInterface>({
+  const dispatch = useAppDispatch();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormInterface>({
     resolver: zodResolver(userSchema),
   });
-const router = useRouter();
- const submitData = async (data: FormInterface) => {
+  const router = useRouter();
+
+  const submitData = async (data: FormInterface) => {
   try {
-    const response = await fetch("http://localhost:3000/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    });
-
-    // Server responded with error
-    if (!response.ok) {
-      const err = await response.json();
-      toast.error(err.message || "Signup failed");
-      return;
-    }
-
-    const responseData = await response.json();
+    const res = await dispatch(signupUser(data)).unwrap();
     toast.success("Signup successful!");
-    setUserData(responseData);
-    reset();
-          router.push("/login");
+    router.push("/login");
+  } catch (error: any) {
 
-  } catch (error) {
-    // Only log network/unknown error to console
-    console.error("Signup error:", error);
-    // Optional: You could check if error is TypeError (like network failure) then show a toast
-    if (error instanceof TypeError) {
-      toast.error("Network error. Please try again.");
-    }
+    toast.error(error?.message || "signup failed. Try again.");
   }
 };
 
@@ -67,7 +42,24 @@ const router = useRouter();
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
+        {errors && (
+          <Typography variant="body2" color="error.main" align="center">
+            {errors?.name?.message || errors?.email?.message || errors?.password?.message}
+          </Typography>
+        )}
         <Box component="form" onSubmit={handleSubmit(submitData)} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="Name"
+            autoComplete="name"
+            autoFocus
+            {...register("name")}
+            error={!!errors.name}
+            helperText={errors.name?.message}
+          />
           <TextField
             margin="normal"
             required
@@ -75,7 +67,6 @@ const router = useRouter();
             id="email"
             label="Email"
             autoComplete="email"
-            autoFocus
             {...register("email")}
             error={!!errors.email}
             helperText={errors.email?.message}
@@ -106,9 +97,7 @@ const router = useRouter();
               Already have an account? Login
             </Typography>
           </Link>
-          
         </Box>
-
       </Box>
       <Toaster richColors position="top-right" />
     </Container>

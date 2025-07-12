@@ -4,7 +4,7 @@ import {
   persistReducer, 
 } from 'redux-persist';
 
-import userReducer from '@/app/redux/slices/userSlice';
+import userReducer from '@/app/redux/slices/login.Slice';
 
 const rootReducer = combineReducers({
   user: userReducer,

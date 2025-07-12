@@ -1,64 +1,27 @@
-
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
-import { useAppDispatch } from "@/app/redux/hooks";
-import { setUser } from "@/app/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { FormInterface, userSchema } from "@/app/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Toaster, toast } from 'sonner';
+import { useAppDispatch } from "@/app/redux/hooks";
+import { loginUser } from "@/app/redux/slices/login.Slice";
 
 export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormInterface>({
+
+  const { register, handleSubmit, formState: { errors } } = useForm<FormInterface>({
     resolver: zodResolver(userSchema)
   });
 
-  const submitData = async (formData: FormInterface) => {
-    setIsLoading(true);
-    
-    try {
-      const response = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-        credentials: 'include', 
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        toast.error(data.message || 'Invalid email or password');
-        return;
-      }
-
-      // Dispatch user data to Redux store
-      dispatch(setUser({
-        email: data.email,
-        
-      }));
-      
-      toast.success('Login successful!');
-      reset(); 
-      router.push("/home");
-      
-    } catch (error) {
-      console.error("Login error:", error);
-      toast.error('Email or password is incorrect. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+  const submitData = (data: FormInterface) => {
+    dispatch(loginUser(data));
+    toast.success('Login successful!');
+    router.push("/home");
   };
 
   return (
@@ -87,7 +50,6 @@ export default function LoginPage() {
             {...register("email")}
             error={!!errors.email}
             helperText={errors.email?.message}
-            disabled={isLoading}
           />
           <TextField
             margin="normal"
@@ -100,16 +62,14 @@ export default function LoginPage() {
             {...register("password")}
             error={!!errors.password}
             helperText={errors.password?.message}
-            disabled={isLoading}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            disabled={isLoading}
           >
-            {isLoading ? 'Signing In...' : 'Sign In'}
+            Sign In
           </Button>
           <Link href="/signup" passHref>
             <Typography variant="body2" color="text.secondary" align="center">
@@ -117,8 +77,8 @@ export default function LoginPage() {
             </Typography>
           </Link>
         </Box>
-        <Toaster position="top-right" /> 
+        <Toaster position="bottom-right" />
       </Box>
     </Container>
-  );  
+  );
 }

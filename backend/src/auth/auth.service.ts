@@ -1,24 +1,28 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { UserRepository } from 'src/repository/user.repository';
 import { HashingService } from 'src/hashing/hashing.service';
 import { SignUpDto } from './dto/signup.dto';
+import { JwtService } from '@nestjs/jwt';
+import { access } from 'fs';
 
 @Injectable()
 export class AuthService {
    constructor(private readonly userRepository: UserRepository,
-      private readonly hashingService: HashingService
+      private readonly hashingService: HashingService,
+      private readonly jwtService: JwtService
     ) { }
    async createUser(userdata: SignUpDto) {
-      const{password,email} = userdata
+      const{name,email,password} = userdata
+      console.log(userdata)
       const existingUser = await this.userRepository.findOne({where:{email}})
      
         if(existingUser){
-          throw new UnauthorizedException(`User with email ${email} already exists`)
+          throw new ConflictException(`User with email ${email} already exists`)
         }
       const hashedpassword  = await this.hashingService.hashPassword(password)
-      const userWithHashPassword = {password:hashedpassword,email,}
-      const user = this.userRepository.createAndSaveUser(userWithHashPassword)
+      const userWithHashPassword = {name,email,password:hashedpassword}
+      const user = await this.userRepository.createAndSaveUser(userWithHashPassword)
       return user;
     }
 
@@ -36,10 +40,12 @@ export class AuthService {
       if(!hashedpassword){
         throw new UnauthorizedException('Invalid credentials')
       }
-
+      const payload = {id:user.id,email:user.email,name:user.name}
+      console.log(user)
       return {
+        name: user.name,
         email: user.email,
-        displayName: user.name,
+        accessToken: await this.jwtService.signAsync(payload)
        
       }
 
