@@ -4,14 +4,19 @@ import { Box, List, ListItem, ListItemButton, ListItemText, Typography, Divider,
 import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
 import { useEffect } from 'react';
 import { GroupInterface, listAllGroups } from '@/app/redux/slices/listAllGroups.slice';
+import { getAllMembers } from '@/app/redux/slices/groupAllMembers.slice';
 
 export default function ListGroups() {
   const dispatch = useAppDispatch();
   const { groups, isLoading, error } = useAppSelector(state => state.listAllGroups);
-    console.log(groups)
+
   useEffect(() => {
     dispatch(listAllGroups());
   }, [dispatch]);
+
+  const handleSubmit = (groupId: number)=>{
+    dispatch(getAllMembers(groupId));
+  }
 
   return (
     <Box
@@ -32,9 +37,9 @@ export default function ListGroups() {
 
       <List>
         {groups.map((group: GroupInterface) => (
-          <ListItem key={group.id} disablePadding>
+          <ListItem key={group.id} disablePadding >
            
-            <ListItemButton sx={{ textAlign: 'left', border: '1px solid #ccc', borderRadius: 2, mb: 1 }} onClick={() => console.log(group)}>
+            <ListItemButton sx={{ textAlign: 'left', border: '1px solid #ccc', borderRadius: 2, mb: 1 }} onClick={() => handleSubmit(group.id)}>
               <ListItemText primary={group.groupName || "Default"} />
             </ListItemButton>
           </ListItem>
@@ -43,3 +48,4 @@ export default function ListGroups() {
     </Box>
   );
 }
+

@@ -25,6 +25,11 @@ export class GroupmembersController {
     return this.groupmembersService.removeUserFromGroup(data);
   }
 
+  @Get('all/:id')
+  getAllGroupMembers(@Param('id') groupId: number) {
+    return this.groupmembersService.getAllGroupMembers(groupId);
+  }
+
   @Get()
   findAll() {
     return this.groupmembersService.findAll();

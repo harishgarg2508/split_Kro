@@ -21,6 +21,23 @@ export const groupSchema = z.object({
     .transform(val => Number(val)), // transform to number for backend
 });
 
+export const expenseSchema = z.object({
+  amount: z.number(),
+  description: z.string(),
+  categoryId: z
+    .string()
+    .min(1, { message: "Category id is required" })
+    .transform(val => Number(val)),
+  createdBy: z
+    .string()
+    .min(1, { message: "User id is required" })
+    .transform(val => Number(val)),
+  groupId: z
+    .string()
+    .min(1, { message: "Group id is required" })
+    .transform(val => Number(val)),
+  
+})
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:3000",
   headers: {

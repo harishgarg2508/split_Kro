@@ -44,6 +44,10 @@ export class GroupmembersService {
     return this.groupmembersRepository.removeUserFromGroup(user.id, group.id);
   }
 
+  async getAllGroupMembers(groupId: number) {
+    return this.groupmembersRepository.getAllGroupMembers(groupId);
+  }
+
   findAll() {
     return `This action returns all groupmembers`;
   }

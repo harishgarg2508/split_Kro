@@ -8,11 +8,13 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 // Import your reducers
 import userReducer from '@/app/redux/slices/login.Slice';
 import listAllGroupsReducer from '@/app/redux/slices/listAllGroups.slice';
+import getAllMembersReducer from '@/app/redux/slices/groupAllMembers.slice';
 
 // Combine all reducers
 const rootReducer = combineReducers({
   user: userReducer,
   listAllGroups: listAllGroupsReducer,
+  getAllMembers: getAllMembersReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
