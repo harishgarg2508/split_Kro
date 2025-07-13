@@ -22,7 +22,7 @@ export class GroupsService {
   }
 
   findAll() {
-    return `This action returns all groups`;
+    return this.groupsRepository.retrieveAllGroups();
   }
 
   findOne(id: number) {

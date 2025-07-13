@@ -12,13 +12,21 @@ export const userSchema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
 });
 
+
+export const groupSchema = z.object({
+  groupName: z.string().min(3, { message: "Group name must be at least 3 characters long" }),
+  categoryId: z
+    .string()
+    .refine(val => ["1", "2", "3", "4"].includes(val), { message: "Invalid category" })
+    .transform(val => Number(val)), // transform to number for backend
+});
+
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
   },
 });
-
 
 export  interface UserState {
   isLoggedIn: boolean;
@@ -34,3 +42,4 @@ export interface Credentials {
   email: string;
   password: string;
 }
+

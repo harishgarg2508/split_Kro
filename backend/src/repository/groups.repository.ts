@@ -21,4 +21,11 @@ export class GroupsRepository extends Repository<Groups> {
     await this.save(group);
     return group;
   }
+
+  async retrieveAllGroups(): Promise<Groups[]> {
+    return this.find({
+      relations: ['groupsMember'],
+    });
+  }
 }
+

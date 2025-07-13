@@ -1,0 +1,21 @@
+import CreateGroupButton from "@/app/components/createGroup/CreateGroupButton";
+import ListGroups from "@/app/components/listGroups/ListGroups";
+import Navbar from "@/app/components/Navbar";
+import { Box, Stack } from "@mui/material";
+
+export default function Dashboard() {
+  return (
+    <Box>
+      <Navbar />
+      <Stack direction="row" sx={{ width: '100%' }}>
+        <ListGroups />
+
+        <Box sx={{ flex: 1, padding: 2 }}>
+          <Stack direction="row" justifyContent="flex-end" sx={{ mb: 2 }}>
+            <CreateGroupButton />
+          </Stack>
+        </Box>
+      </Stack>
+    </Box>
+  );
+}
