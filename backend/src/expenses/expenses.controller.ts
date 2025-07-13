@@ -9,7 +9,7 @@ export class ExpensesController {
 
   @Post()
   create(@Body() createExpenseDto: CreateExpenseDto) {
-    return this.expensesService.create(createExpenseDto);
+    return this.expensesService.createExpense(createExpenseDto);
   }
 
   @Get()

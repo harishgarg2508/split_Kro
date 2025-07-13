@@ -19,8 +19,8 @@ export class GroupsMembersRepository extends Repository<Groupmember> {
 
    async removeUserFromGroup(userId: number, groupId: number) {
 
-    await this.delete({ user: { id: userId }, group: { id: groupId } });
-    return { message: 'User removed from group' };
+   const deletedUser =  await this.delete({ user: { id: userId }, group: { id: groupId } });
+    return deletedUser;
  
 }
 }

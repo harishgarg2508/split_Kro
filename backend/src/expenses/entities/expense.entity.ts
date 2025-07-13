@@ -17,7 +17,7 @@ export class Expense {
     description:string
 
     @ManyToOne(()=>Category,category=>category.expense)
-    category:Category[]
+    category:Category
 
     @ManyToOne(()=>User)
     createdBy:User
