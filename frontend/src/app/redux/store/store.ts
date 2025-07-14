@@ -10,7 +10,7 @@
   import getAllMembersReducer from '@/app/redux/slices/groupAllMembers.slice';
   import getAllUserReducer from '@/app/redux/slices/getAllusers.slice';
   import createExpenseReducer from '@/app/redux/slices/createExpense.slice';
-  import getUserSummaryReducer from '@/app/redux/slices/getuserSummary.slice';
+  import getExpensesForUserReducer from '@/app/redux/slices/getExpensesForUser.slice';
 
 
   const rootReducer = combineReducers({
@@ -19,7 +19,7 @@
     getAllMembers: getAllMembersReducer,
     getAllUsers: getAllUserReducer,
     createExpense: createExpenseReducer,
-    getUserSummary: getUserSummaryReducer,
+    getExpensesForUser: getExpensesForUserReducer,
   });
 
   export type RootState = ReturnType<typeof rootReducer>;

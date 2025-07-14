@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemText, Typography, Divider, ListItemAvatar, Stack } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
-import PersonIcon from '@mui/icons-material/Person';
+// import PersonIcon from '@mui/icons-material/Person';
 export default function GroupAllMembers() {
   const dispatch = useAppDispatch();
   const members = useAppSelector(state => state.getAllMembers.groupmembers);
@@ -24,7 +24,7 @@ export default function GroupAllMembers() {
             <ListItem key={member.id} disablePadding>
               <ListItemButton sx={{ textAlign: 'left', border: '1px solid #ccc', borderRadius: 2, mr: 2 }}>
               <ListItemAvatar>
-                <PersonIcon />
+                {/* <PersonIcon /> */}
               </ListItemAvatar>
                 <ListItemText primary={member.user.name || "Unnamed"} />
               </ListItemButton>

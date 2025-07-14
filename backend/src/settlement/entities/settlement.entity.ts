@@ -24,6 +24,8 @@ export class Settlement {
     @Column()
     balance_with_User:number
 
+    
+
     @ManyToOne(()=>User,user=>user.settlementPaid)
     payer:User;
 

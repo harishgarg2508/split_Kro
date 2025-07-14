@@ -12,9 +12,9 @@ export class ExpensesController {
     return this.expensesService.createExpense(createExpenseDto);
   }
 
-  @Get()
-  findAll() {
-    return this.expensesService.findAll();
+  @Get('all/:userId/:groupId')
+  getExpensesForUser(@Param('userId') userId: number, @Param('groupId') groupId: number) {
+    return this.expensesService.getExpensesForUser(userId,groupId);
   }
 
   @Get(':id')

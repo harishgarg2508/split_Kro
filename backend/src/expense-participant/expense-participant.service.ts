@@ -6,9 +6,9 @@ import { ExpenseParticipantRepository } from 'src/repository/expenseParticipant.
 @Injectable()
 export class ExpenseParticipantService {
   constructor(private readonly expenseParticipantRepository:ExpenseParticipantRepository ){}
-  create(createExpenseParticipantDto: CreateExpenseParticipantDto) {
-    return this.expenseParticipantRepository.createAndSaveParticipants(createExpenseParticipantDto);
-  }
+  // create(createExpenseParticipantDto: CreateExpenseParticipantDto) {
+  //   return this.expenseParticipantRepository.createAndSaveParticipants(createExpenseParticipantDto);
+  // }
 
   findAll() {
     return `This action returns all expenseParticipant`;

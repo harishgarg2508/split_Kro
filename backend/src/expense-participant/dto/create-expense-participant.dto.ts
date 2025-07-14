@@ -1,21 +1,19 @@
-import { IsNumber, IsOptional } from "class-validator";
+import { IsNumber, IsOptional, IsDecimal } from "class-validator";
 
 export class CreateExpenseParticipantDto {
 
   @IsNumber()
   userId: number;
 
-  @IsNumber()
+  @IsDecimal()
   paid: number;
 
-  @IsNumber()
+  @IsDecimal()
   owed: number;
 
   @IsNumber()
   @IsOptional()
   expenseId?: number;
 
- 
-
-
 }
+

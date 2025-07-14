@@ -7,10 +7,10 @@ import { UpdateExpenseParticipantDto } from './dto/update-expense-participant.dt
 export class ExpenseParticipantController {
   constructor(private readonly expenseParticipantService: ExpenseParticipantService) {}
 
-  @Post()
-  create(@Body() createExpenseParticipantDto: CreateExpenseParticipantDto) {
-    return this.expenseParticipantService.create(createExpenseParticipantDto);
-  }
+  // @Post()
+  // create(@Body() createExpenseParticipantDto: CreateExpenseParticipantDto) {
+  //   return this.expenseParticipantService.create(createExpenseParticipantDto);
+  // }
 
   @Get()
   findAll() {

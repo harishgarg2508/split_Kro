@@ -4,7 +4,7 @@ import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
+// import ImageIcon from '@mui/icons-material/Image';
 import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
 import { getAllUsers } from '@/app/redux/slices/getAllusers.slice';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
@@ -86,7 +86,7 @@ const GetAllUsers: React.FC = () => {
               <Button key={user.id} onClick={() => handleAddToGroup(Number(user.id))} fullWidth sx={{ justifyContent: "flex-start", mb: 1 }}>
                 <ListItemAvatar>
                   <Avatar src={user.avatar as string | undefined}>
-                    <ImageIcon />
+                    {/* <ImageIcon /> */}
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={user.name} />

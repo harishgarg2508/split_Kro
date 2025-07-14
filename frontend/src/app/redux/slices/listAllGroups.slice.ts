@@ -22,14 +22,14 @@ interface ListAllGroupsState {
   isLoading: boolean;
   groups: GroupInterface[];
   error: string | null;
-  selectedGroupId: number | null; // <--- add this
+  selectedGroupId: number | null; 
 }
 
 const initialState: ListAllGroupsState = {
   isLoading: false,
   groups: [],
   error: null,
-  selectedGroupId: null, // <--- add this
+  selectedGroupId: null, 
 };
 
 const listAllGroupsSlice = createSlice({

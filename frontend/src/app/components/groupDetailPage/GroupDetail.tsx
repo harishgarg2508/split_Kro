@@ -3,6 +3,7 @@ import { Box, Button, Stack } from "@mui/material";
 import GroupAllMembers from "../getAllMembers/GroupAllMembers";
 import GetAllUsers from "../getAllUsers/AddUserToGroup";
 import CreateExpenseButton from "../createExpense/CreateExpense";
+import UserExpenses from "@/app/(pages)/expenses/page";
 
 export default function GroupDetail() {
 
@@ -12,8 +13,10 @@ export default function GroupDetail() {
             <GroupAllMembers />
             <Stack direction={'row'} gap={3}>
                 <GetAllUsers />
+
                 <CreateExpenseButton />
             </Stack>
+            <UserExpenses/>
 
         </Box>
     )

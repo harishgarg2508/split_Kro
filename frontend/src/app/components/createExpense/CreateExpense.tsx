@@ -59,8 +59,12 @@ export default function CreateExpenseButton() {
       return;
     }
 
-    dispatch(createExpense({ ...data, groupId }));
-    console.log("✅ Submitted:", data);
+    // ✅ Ensure participants is always an array
+    dispatch(createExpense({ 
+      ...data, 
+      groupId,
+      participants: data.participants || [] 
+    }));
     handleClose();
     reset();
   };

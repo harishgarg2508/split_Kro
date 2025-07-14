@@ -3,7 +3,6 @@
 import React, { useRef } from 'react'
 import { Provider } from 'react-redux'
 import { makeStore } from './redux/store/store'
-import { Toaster } from 'sonner'
 import { PersistGate } from 'redux-persist/integration/react'
 
 const StoreProvider = ({ children }: { children: React.ReactNode }) => {
@@ -16,7 +15,6 @@ const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={storeRef.current.store}>
       <PersistGate loading={null} persistor={storeRef.current.persistor}>
-        <Toaster richColors position="top-right" />
         {children}
       </PersistGate>
     </Provider>

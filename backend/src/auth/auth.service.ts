@@ -44,7 +44,7 @@ export class AuthService {
     console.log(user)
     return {
       name: user.name,
-      id: user.id,
+      userId: user.id,
       email: user.email,
       token: await this.jwtService.signAsync(payload)
 

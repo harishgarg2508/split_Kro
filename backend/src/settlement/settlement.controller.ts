@@ -12,9 +12,9 @@ export class SettlementController {
     return this.settlementService.create(createSettlementDto);
   }
 
-  @Get()
-  findAll() {
-    return this.settlementService.findAll();
+  @Get('all/:userId')
+  findAll(@Param('userId') userId: number) {
+    return this.settlementService.getAllSettlementOfUser(userId);
   }
 
   @Get(':id')

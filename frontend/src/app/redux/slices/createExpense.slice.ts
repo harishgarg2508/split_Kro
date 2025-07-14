@@ -18,6 +18,7 @@ export const createExpense = createAsyncThunk(
   "createExpense",
   async (data: ExpenseType) => {
     const response = await axiosInstance.post("/expenses", data);
+    console.log("createExpense response:", response.data);
     return response.data;
   }
 );
