@@ -3,13 +3,14 @@
     persistStore,
     persistReducer,
   } from 'redux-persist';
-  import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+  import storage from 'redux-persist/lib/storage'; 
 
   import userReducer from '@/app/redux/slices/login.Slice';
   import listAllGroupsReducer from '@/app/redux/slices/listAllGroups.slice';
   import getAllMembersReducer from '@/app/redux/slices/groupAllMembers.slice';
   import getAllUserReducer from '@/app/redux/slices/getAllusers.slice';
   import createExpenseReducer from '@/app/redux/slices/createExpense.slice';
+  import getUserSummaryReducer from '@/app/redux/slices/getuserSummary.slice';
 
 
   const rootReducer = combineReducers({
@@ -17,7 +18,8 @@
     listAllGroups: listAllGroupsReducer,
     getAllMembers: getAllMembersReducer,
     getAllUsers: getAllUserReducer,
-    createExpense: createExpenseReducer
+    createExpense: createExpenseReducer,
+    getUserSummary: getUserSummaryReducer,
   });
 
   export type RootState = ReturnType<typeof rootReducer>;

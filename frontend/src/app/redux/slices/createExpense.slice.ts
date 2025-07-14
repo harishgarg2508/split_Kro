@@ -7,6 +7,11 @@ export interface ExpenseType {
   createdBy: number;
   categoryId: number;
   groupId: number;
+  participants: {
+    userId: number;
+    paid: number;
+    owed: number;
+  }[];
 }
 
 export const createExpense = createAsyncThunk(

@@ -1,4 +1,4 @@
-import { IsNumber } from "class-validator";
+import { IsNumber, IsOptional } from "class-validator";
 
 export class CreateExpenseParticipantDto {
 
@@ -12,7 +12,8 @@ export class CreateExpenseParticipantDto {
   owed: number;
 
   @IsNumber()
-  expenseId: number;
+  @IsOptional()
+  expenseId?: number;
 
  
 

@@ -21,15 +21,16 @@ export default function LoginPage() {
     resolver: zodResolver(userSchema)
   });
 
-  const submitData = (data: FormInterface) => {
-    dispatch(loginUser(data));
-    if (!user.error) {
-      toast.error('Login failed. Please check your credentials.');
-    } else {
-      toast.success('Login successful!');
-      router.push("/dashboard");
-    }
-  };
+ const submitData = async (data: FormInterface) => {
+  try {
+    const response = await dispatch(loginUser(data)).unwrap();
+    toast.success('Login successful!');
+    router.push("/dashboard");
+  } catch (error) {
+    toast.error('Login failed. Please check your credentials.');
+  }
+};
+
 
   return (
     <Container maxWidth="xs">
