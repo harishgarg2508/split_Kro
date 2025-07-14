@@ -6,4 +6,5 @@ export class CreateGroupmemberDto {
 
     @IsNumber()
     groupId: number;
+    
 }

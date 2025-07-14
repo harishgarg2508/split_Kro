@@ -10,12 +10,11 @@ import {
 import { GroupmembersService } from './groupmembers.service';
 import { CreateGroupmemberDto } from './dto/create-groupmember.dto';
 import { UpdateGroupmemberDto } from './dto/update-groupmember.dto';
-
 @Controller('groupmembers')
 export class GroupmembersController {
   constructor(private readonly groupmembersService: GroupmembersService) {}
 
-  @Post()
+  @Post('add')
   addUserToGroup(@Body() data: CreateGroupmemberDto) {
     return this.groupmembersService.addUserToGroup(data);
   }

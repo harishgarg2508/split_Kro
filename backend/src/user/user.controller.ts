@@ -12,9 +12,9 @@ export class UserController {
     return this.userService.createUser();
   }
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
+  @Get('all')
+  searchAllUsers() {
+    return this.userService.searchAllUsers();
   }
 
   @Get(':id')

@@ -26,7 +26,7 @@ export default function CreateGroupButton() {
     resolver: zodResolver(groupSchema),
     defaultValues: {
       groupName: "",
-      categoryId: ""
+      categoryId:  0
     }
   });
 

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { axiosInstance } from "@/app/utils";
 
 export const listAllGroups = createAsyncThunk(
@@ -13,8 +13,6 @@ export const listAllGroups = createAsyncThunk(
   }
 );
 
-
-
 export interface GroupInterface {
   id: number;
   groupName: string;
@@ -24,18 +22,24 @@ interface ListAllGroupsState {
   isLoading: boolean;
   groups: GroupInterface[];
   error: string | null;
+  selectedGroupId: number | null; // <--- add this
 }
 
 const initialState: ListAllGroupsState = {
   isLoading: false,
   groups: [],
   error: null,
+  selectedGroupId: null, // <--- add this
 };
 
 const listAllGroupsSlice = createSlice({
   name: "listAllGroups",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedGroupId(state, action: PayloadAction<number>) {
+      state.selectedGroupId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(listAllGroups.pending, (state) => {
       state.isLoading = true;
@@ -47,9 +51,10 @@ const listAllGroupsSlice = createSlice({
     });
     builder.addCase(listAllGroups.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.payload as string || action.error.message || "Unknown error";
+      state.error = (action.payload as string) || action.error.message || "Unknown error";
     });
   },
 });
 
+export const { setSelectedGroupId } = listAllGroupsSlice.actions;
 export default listAllGroupsSlice.reducer;

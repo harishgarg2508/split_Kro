@@ -17,4 +17,8 @@ export class UserRepository extends Repository<User> {
         return { user };
     }
 
+    async searchAllUsers() {
+        return this.find();
+      }
+
 }

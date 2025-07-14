@@ -15,29 +15,17 @@ export const userSchema = z.object({
 
 export const groupSchema = z.object({
   groupName: z.string().min(3, { message: "Group name must be at least 3 characters long" }),
-  categoryId: z
-    .string()
-    .refine(val => ["1", "2", "3", "4"].includes(val), { message: "Invalid category" })
-    .transform(val => Number(val)), // transform to number for backend
+  categoryId: z.number().int().positive("Please select a category"),
 });
 
 export const expenseSchema = z.object({
-  amount: z.number(),
-  description: z.string(),
-  categoryId: z
-    .string()
-    .min(1, { message: "Category id is required" })
-    .transform(val => Number(val)),
-  createdBy: z
-    .string()
-    .min(1, { message: "User id is required" })
-    .transform(val => Number(val)),
-  groupId: z
-    .string()
-    .min(1, { message: "Group id is required" })
-    .transform(val => Number(val)),
-  
-})
+  amount: z.number().min(1, "Amount must be at least 1"),
+  description: z.string().min(1, "Description is required"),
+  createdBy: z.number().int().positive("Please select a user"),
+  groupId: z.number().int().positive("Please select a group"),
+  categoryId: z.number().int().positive("Please select a category"),
+});
+
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:3000",
   headers: {

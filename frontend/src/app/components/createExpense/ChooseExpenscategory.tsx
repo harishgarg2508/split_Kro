@@ -3,15 +3,22 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { UseFormRegister, FieldError } from "react-hook-form";
 
-export type GroupFormFields = {
-  groupName: string;
+
+
+type ExpenseFormType = {
+  amount: number;
+  description: string;
+  createdBy: number;
+  groupId: number;
   categoryId: number;
+  
 };
 
 type ChooseCategoryProps = {
-  register: UseFormRegister<GroupFormFields>;
+  register: UseFormRegister< ExpenseFormType>;
   error?: FieldError;
-}
+};
+
 
 const categories = [
   { value: 1, label: "Party" },
@@ -20,7 +27,7 @@ const categories = [
   { value: 4, label: "Food" },
 ];
 
-const ChooseCategory: React.FC<ChooseCategoryProps> = ({ register, error }) => {
+const ChooseExpenseCategory: React.FC<ChooseCategoryProps> = ({ register, error }) => {
   return (
     <TextField
       select
@@ -29,7 +36,7 @@ const ChooseCategory: React.FC<ChooseCategoryProps> = ({ register, error }) => {
       margin="dense"
       variant="standard"
       defaultValue=""
-      {...register("categoryId", { valueAsNumber: true })} // <-- important
+      {...register("categoryId")}
       error={!!error}
       helperText={error ? error.message : "Please select group category"}
       required
@@ -43,4 +50,4 @@ const ChooseCategory: React.FC<ChooseCategoryProps> = ({ register, error }) => {
   );
 }
 
-export default ChooseCategory;
+export default ChooseExpenseCategory
