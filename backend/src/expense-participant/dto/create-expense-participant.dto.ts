@@ -10,4 +10,11 @@ export class CreateExpenseParticipantDto {
 
   @IsNumber()
   owed: number;
+
+  @IsNumber()
+  expenseId: number;
+
+ 
+
+
 }

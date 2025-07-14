@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { use } from "react";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -7,12 +7,15 @@ import { useForm } from "react-hook-form";
 import { FormInterface, userSchema } from "@/app/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Toaster, toast } from 'sonner';
-import { useAppDispatch } from "@/app/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { loginUser } from "@/app/redux/slices/login.Slice";
+
 
 export default function LoginPage() {
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const user = useAppSelector(state => state.user);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormInterface>({
     resolver: zodResolver(userSchema)
@@ -20,8 +23,12 @@ export default function LoginPage() {
 
   const submitData = (data: FormInterface) => {
     dispatch(loginUser(data));
-    toast.success('Login successful!');
-    router.push("/home");
+    if (!user.error) {
+      toast.error('Login failed. Please check your credentials.');
+    } else {
+      toast.success('Login successful!');
+      router.push("/dashboard");
+    }
   };
 
   return (

@@ -3,7 +3,7 @@ import { ExpenseParticipantService } from './expense-participant.service';
 import { CreateExpenseParticipantDto } from './dto/create-expense-participant.dto';
 import { UpdateExpenseParticipantDto } from './dto/update-expense-participant.dto';
 
-@Controller('expense-participant')
+@Controller('participant')
 export class ExpenseParticipantController {
   constructor(private readonly expenseParticipantService: ExpenseParticipantService) {}
 

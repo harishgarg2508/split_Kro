@@ -28,6 +28,8 @@ export class Expense {
     @OneToMany(()=>ExpenseParticipant,participant=>participant.expense)
     expenseParticipant:ExpenseParticipant[];
 
+    
+
     @CreateDateColumn()
     createdAt:Date
 

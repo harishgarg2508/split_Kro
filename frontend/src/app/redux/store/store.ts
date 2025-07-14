@@ -11,6 +11,7 @@
   import getAllUserReducer from '@/app/redux/slices/getAllusers.slice';
   import createExpenseReducer from '@/app/redux/slices/createExpense.slice';
 
+
   const rootReducer = combineReducers({
     user: userReducer,
     listAllGroups: listAllGroupsReducer,

@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateExpenseParticipantDto } from './dto/create-expense-participant.dto';
 import { UpdateExpenseParticipantDto } from './dto/update-expense-participant.dto';
+import { ExpenseParticipantRepository } from 'src/repository/expenseParticipant.repository';
 
 @Injectable()
 export class ExpenseParticipantService {
+  constructor(private readonly expenseParticipantRepository:ExpenseParticipantRepository ){}
   create(createExpenseParticipantDto: CreateExpenseParticipantDto) {
-    return 'This action adds a new expenseParticipant';
+    return this.expenseParticipantRepository.createAndSaveParticipants(createExpenseParticipantDto);
   }
 
   findAll() {

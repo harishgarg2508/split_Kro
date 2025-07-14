@@ -11,7 +11,7 @@ import { CategoryRepository } from 'src/repository/category.repository';
 @Injectable()
 export class ExpensesService {
   constructor(private readonly expenseRepository:ExpenseRepository,
-     private readonly expenseParticipantRepository:ExpenseParticipantRepository,
+      private readonly expenseParticipantRepository:ExpenseParticipantRepository,
       private readonly groupRepository:GroupsRepository,
       private readonly userRepository:UserRepository,
       private readonly categoryRepository:CategoryRepository

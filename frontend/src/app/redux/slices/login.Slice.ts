@@ -1,3 +1,5 @@
+// src/app/redux/slices/login.Slice.ts
+
 import { axiosInstance, Credentials, UserState } from "@/app/utils";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -6,6 +8,7 @@ export const loginUser = createAsyncThunk(
   async (data: Credentials) => {
     const response = await axiosInstance.post('/auth/login', data);
     return response.data;
+    
   }
 );
 
@@ -20,20 +23,22 @@ const initialState: UserState = {
 };
 
 const loginSlice = createSlice({
-  name: "login",
+  name: "loginUser",
   initialState,
   reducers: {
     logout: (state) => {
       state.isLoggedIn = false;
-      state.token = '';
-      state.userId = '';
       state.name = '';
+      state.userId = '';
       state.email = '';
+      state.token = '';
+      state.error = '';
     },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.pending, (state) => {
       state.isLoading = true;
+      state.error = '';
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.isLoggedIn = true;
@@ -42,6 +47,7 @@ const loginSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.isLoading = false;
+      state.error = '';
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.error = action.error?.message || 'An unknown error occurred';
@@ -50,4 +56,5 @@ const loginSlice = createSlice({
   },
 });
 
+export const { logout } = loginSlice.actions;
 export default loginSlice.reducer;

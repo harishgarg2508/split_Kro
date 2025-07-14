@@ -1,13 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { DataSource, Repository } from "typeorm";
 import { ExpenseParticipant } from "src/expense-participant/entities/expense-participant.entity";
+import { CreateExpenseParticipantDto } from "src/expense-participant/dto/create-expense-participant.dto";
 @Injectable()
 export class ExpenseParticipantRepository extends Repository<ExpenseParticipant> {
     constructor(private readonly dataSource: DataSource) {
         super(ExpenseParticipant, dataSource.createEntityManager());
     }
 
-    async saveParticipants(participants: ExpenseParticipant[]) {
+    async createAndSaveParticipants(participants: CreateExpenseParticipantDto) {
         const expenseParticipant = this.create(participants);
         await this.save(participants);
 
