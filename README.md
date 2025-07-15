@@ -13,7 +13,7 @@ git clone https://github.com/harishgarg2508/split_Kro
 
 cd split_Kro
 
-docker-compose up
+docker compose up
 
 Once everything is running, open your browser and enter this to load categories
 
