@@ -11,7 +11,7 @@ This project is containerized using Docker. Follow the instructions below to set
 ```bash
 git clone https://github.com/harishgarg2508/split_Kro
 
-cd split_kro
+cd split_Kro
 
 docker-compose up
 
