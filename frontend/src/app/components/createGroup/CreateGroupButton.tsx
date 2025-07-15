@@ -14,6 +14,7 @@ import { groupSchema } from '../../utils';
 
 import { useAppDispatch } from '@/app/redux/hooks';
 import { createGroup } from './createGroupThunk';
+import { toast ,Toaster} from 'sonner';
 
 export default function CreateGroupButton() {
   const [open, setOpen] = React.useState(false);
@@ -33,6 +34,11 @@ export default function CreateGroupButton() {
   const submitData = (data:any) => {
     console.log(data);
     dispatch(createGroup(data));
+    toast.success('Group created successfully!');
+     setTimeout(()=>{
+        window.location.reload();
+
+      },2000)
     handleClose();
     reset();
   };
@@ -68,6 +74,7 @@ export default function CreateGroupButton() {
             </DialogActions>
           </form>
         </DialogContent>
+        <Toaster position="top-right" />
       </Dialog>
     </React.Fragment>
   );

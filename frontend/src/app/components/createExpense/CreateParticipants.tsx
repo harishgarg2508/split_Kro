@@ -40,7 +40,6 @@ const CreateParticipants: React.FC<Props> = ({ name, control, error }) => {
     dispatch(getAllUsers());
   }, [dispatch]);
 
-  // Memoize the calculation to prevent unnecessary re-renders
   const calculateEqualSplit = useCallback(() => {
     if (selectedParticipants.length === 0 || !selectedAmount) {
       return [];
@@ -165,7 +164,6 @@ const CreateParticipants: React.FC<Props> = ({ name, control, error }) => {
                     type="number"
                     size="small"
                     placeholder="0"
-                    inputProps={{ step: "0.01" }}
                     {...register(`${name}.${participantIndex}.paid`, { 
                       valueAsNumber: true,
                       setValueAs: (value) => Number(parseFloat(value || 0).toFixed(2))
@@ -178,7 +176,6 @@ const CreateParticipants: React.FC<Props> = ({ name, control, error }) => {
                     size="small"
                     value={participantData?.owed || 0}
                     disabled
-                    inputProps={{ step: "0.01" }}
                   />
                 <TextField
                   type="hidden"

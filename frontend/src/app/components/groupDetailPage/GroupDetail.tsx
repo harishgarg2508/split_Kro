@@ -17,6 +17,7 @@ export default function GroupDetail() {
                 <CreateExpenseButton />
             </Stack>
             <UserExpenses/>
+            
 
         </Box>
     )

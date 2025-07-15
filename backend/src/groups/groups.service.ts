@@ -33,7 +33,7 @@ export class GroupsService {
     return `This action updates a #${id} group`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} group`;
+  deleteGroupById(id: number) {
+    return this.groupsRepository.delete(id)
   }
 }

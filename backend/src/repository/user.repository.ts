@@ -10,15 +10,20 @@ export class UserRepository extends Repository<User> {
         super(User, dataSource.createEntityManager());
     }
 
-    async createAndSaveUser(userdata:SignUpDto){
+    async createAndSaveUser(userdata: SignUpDto) {
         console.log(userdata)
-       const user =  this.create(userdata)
+        const user = this.create(userdata)
         await this.save(user)
         return { user };
     }
 
-    async searchAllUsers() {
-        return this.find();
-      }
+    async searchAllUsers(search?: string, page: number = 1, limit: number = 10) {
+        const query = this.createQueryBuilder('user');
+        if (search) {
+            query.where('user.name LIKE :search OR user.email LIKE :search', { search: `%${search}%` });
+        }
+        query.skip((page - 1) * limit).take(limit);
+        return query.getMany();
+    }
 
 }

@@ -14,10 +14,14 @@ export class ExpenseParticipant {
     @Column()
     owed:number
 
-    @ManyToOne(()=>Expense,expense=>expense.expenseParticipant)
+    @ManyToOne(()=>Expense,expense=>expense.expenseParticipant,{
+        onDelete:'CASCADE'
+    })
     expense:Expense;
 
-    @ManyToOne(()=>User,user=>user.expenseParticipants)
+    @ManyToOne(()=>User,user=>user.expenseParticipants,{
+        onDelete:'CASCADE'
+    })
     user:User;
 
     

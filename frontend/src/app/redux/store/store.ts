@@ -11,6 +11,7 @@
   import getAllUserReducer from '@/app/redux/slices/getAllusers.slice';
   import createExpenseReducer from '@/app/redux/slices/createExpense.slice';
   import getExpensesForUserReducer from '@/app/redux/slices/getExpensesForUser.slice';
+  import settlementReducer from '@/app/redux/slices/settlement.slice';
 
 
   const rootReducer = combineReducers({
@@ -20,6 +21,7 @@
     getAllUsers: getAllUserReducer,
     createExpense: createExpenseReducer,
     getExpensesForUser: getExpensesForUserReducer,
+    settlement: settlementReducer,
   });
 
   export type RootState = ReturnType<typeof rootReducer>;

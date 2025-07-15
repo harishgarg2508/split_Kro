@@ -32,18 +32,19 @@ export class User {
     @DeleteDateColumn()
     deletedat: Date
 
-    @OneToMany(()=>Groupmember,group=>group.user)
+    @OneToMany(()=>Groupmember,group=>group.user,{cascade:true})
     groupsMember:Groupmember[]
 
-    @OneToMany(()=>ExpenseParticipant,participants=>participants.user)
+    @OneToMany(()=>ExpenseParticipant,participants=>participants.user,{cascade:true})
     expenseParticipants:ExpenseParticipant[]
 
-    @OneToMany(()=>Settlement,settlement=>settlement.payer)
+    @OneToMany(()=>Settlement,settlement=>settlement.payer,{cascade:true})
     settlementPaid:Settlement[]
 
-    @OneToMany(()=>Settlement,settlement=>settlement.payer)
+    @OneToMany(()=>Settlement,settlement=>settlement.payer,{cascade:true})
     settlementReceived:Settlement[]
 
 
 
 }
+

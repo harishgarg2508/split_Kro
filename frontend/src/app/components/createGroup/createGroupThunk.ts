@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { groupSchema } from "@/app/utils";
 import { axiosInstance } from "@/app/utils";
 interface GroupFormFields {
     groupName: string;

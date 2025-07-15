@@ -18,13 +18,13 @@ export class Groups {
     @DeleteDateColumn()
     deletedAt: Date
    
-    @ManyToOne(() => Category, category => category.groups)
+    @ManyToOne(() => Category, category => category.groups, { onDelete: 'CASCADE' })
     category: Category
     
-    @OneToMany(() => Groupmember, groupMember => groupMember.group)
+    @OneToMany(() => Groupmember, groupMember => groupMember.group, { cascade: true })
     groupsMember: Groupmember[]
 
-    @OneToMany(() => Expense, expense => expense.group)
+    @OneToMany(() => Expense, expense => expense.group, { cascade: true })
     expense: Expense[]
 
 

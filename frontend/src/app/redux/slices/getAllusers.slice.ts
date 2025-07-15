@@ -2,13 +2,12 @@ import { createAsyncThunk ,createSlice} from "@reduxjs/toolkit";
 import { axiosInstance } from "@/app/utils";
 
 export const getAllUsers = createAsyncThunk(
-    "getAllUsers",
-    async (search?:string) => {
-        const response = await axiosInstance.get(`/user/all`);
-        return response.data;
-    }
+  "getAllUsers",
+  async (search?: string) => {
+    const response = await axiosInstance.get(`/user/all${search ? `?search=${search}` : ''}`);
+    return response.data;
+  }
 );
-
 
 
 interface User{

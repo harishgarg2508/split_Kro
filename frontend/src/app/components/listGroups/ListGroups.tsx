@@ -1,12 +1,15 @@
 'use client';
 import * as React from 'react';
-import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
+import { Box, Button, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
 import { useEffect } from 'react';
 import { GroupInterface, listAllGroups, setSelectedGroupId } from '@/app/redux/slices/listAllGroups.slice';
 import { getAllMembers } from '@/app/redux/slices/groupAllMembers.slice';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteGroupById } from './DeleteGroupByIdThunk';
+import { toast } from 'sonner';
 
-export default function ListGroups() {
+export default function ListGroups() {  
   const dispatch = useAppDispatch();
   const { groups, isLoading, error, selectedGroupId } = useAppSelector(state => state.listAllGroups);
 
@@ -17,6 +20,18 @@ export default function ListGroups() {
   const handleSubmit = (groupId: number) => {
     dispatch(setSelectedGroupId(groupId));
     dispatch(getAllMembers(groupId));
+  };
+
+  const handleDeleteGroupById = (groupId: number) => {
+    dispatch(deleteGroupById(groupId))
+      .unwrap()
+      .then(() => {
+        toast.success("Group deleted successfully");
+        dispatch(listAllGroups());
+      })
+      .catch(() => {
+        toast.error("Failed to delete group");
+      });
   };
 
   return (
@@ -38,7 +53,7 @@ export default function ListGroups() {
 
       <List>
         {groups.map((group: GroupInterface) => (
-          <ListItem key={group.id} disablePadding >
+          <ListItem key={group.id} disablePadding>
             <ListItemButton
               sx={{
                 textAlign: 'left',
@@ -51,6 +66,18 @@ export default function ListGroups() {
               selected={selectedGroupId === group.id}
             >
               <ListItemText primary={group.groupName || "Default"} />
+              <Button
+                variant="outlined"
+                size="small"
+                color="error"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteGroupById(group.id);
+                }}
+                startIcon={<DeleteIcon />}
+              >
+                Del
+              </Button>
             </ListItemButton>
           </ListItem>
         ))}
@@ -58,3 +85,4 @@ export default function ListGroups() {
     </Box>
   );
 }
+

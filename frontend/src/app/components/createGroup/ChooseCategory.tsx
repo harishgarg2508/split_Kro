@@ -29,7 +29,7 @@ const ChooseCategory: React.FC<ChooseCategoryProps> = ({ register, error }) => {
       margin="dense"
       variant="standard"
       defaultValue=""
-      {...register("categoryId", { valueAsNumber: true })} // <-- important
+      {...register("categoryId", { valueAsNumber: true })}
       error={!!error}
       helperText={error ? error.message : "Please select group category"}
       required

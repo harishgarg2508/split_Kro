@@ -13,6 +13,7 @@ import { GroupmembersModule } from './groupmembers/groupmembers.module';
 import { ExpenseParticipantModule } from './expense-participant/expense-participant.module';
 import { SettlementModule } from './settlement/settlement.module';
 import { AuthModule } from './auth/auth.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [UserModule,
@@ -25,7 +26,8 @@ import { AuthModule } from './auth/auth.module';
     GroupmembersModule,
     ExpenseParticipantModule,
     SettlementModule,
-    AuthModule
+    AuthModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService],

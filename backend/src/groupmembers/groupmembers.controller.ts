@@ -19,8 +19,8 @@ export class GroupmembersController {
     return this.groupmembersService.addUserToGroup(data);
   }
 
-  @Delete('remove')
-  removeUserFromGroup(@Body() data: CreateGroupmemberDto) {
+  @Delete('remove/:groupId/:userId')
+  removeUserFromGroup(@Param() data: CreateGroupmemberDto) {
     return this.groupmembersService.removeUserFromGroup(data);
   }
 

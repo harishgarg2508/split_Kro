@@ -14,10 +14,10 @@ export class Groupmember {
     @DeleteDateColumn()
     deletedAt:Date
 
-    @ManyToOne(()=>User,user=>user.groupsMember)
+    @ManyToOne(()=>User,user=>user.groupsMember,{onDelete:'CASCADE'})
     user:User;
 
-    @ManyToOne(()=>Groups,group=>group.groupsMember)
+    @ManyToOne(()=>Groups,group=>group.groupsMember, {onDelete: 'CASCADE'})
     group:Groups;
 
 

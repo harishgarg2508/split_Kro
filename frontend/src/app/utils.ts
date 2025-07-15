@@ -35,11 +35,12 @@ export const expenseSchema = z.object({
   participants: z.array(participantSchema).optional(),
 });
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },
 });
+
 
 export  interface UserState {
   isLoggedIn: boolean;
@@ -49,6 +50,9 @@ export  interface UserState {
   name: string;
   email: string;
   error: string;
+  createdAt: string;
+  updatedAt: string;
+  avatar: string;
 }
 
 export interface Credentials {

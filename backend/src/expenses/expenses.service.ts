@@ -84,7 +84,7 @@ export class ExpensesService {
     return `This action updates a #${id} expense`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} expense`;
+  deleteExpense(id: number) {
+    return this.expenseRepository.delete({ id });
   }
 }

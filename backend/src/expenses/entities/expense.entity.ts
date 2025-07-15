@@ -8,36 +8,33 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMan
 export class Expense {
 
     @PrimaryGeneratedColumn()
-    id:number
+    id: number;
 
     @Column()
-    amount:number
+    amount: number;
 
     @Column()
-    description:string
+    description: string;
 
-    @ManyToOne(()=>Category,category=>category.expense)
-    category:Category
+    @ManyToOne(() => Category, category => category.expense, { onDelete: 'CASCADE' })
+    category: Category;
 
-    @ManyToOne(()=>User)
-    createdBy:User
+    @ManyToOne(() => User, { onDelete: 'CASCADE' })
+    createdBy: User;
 
-    @ManyToOne(()=>Groups,group=>group.expense)
-    group:Groups
+    @ManyToOne(() => Groups, group => group.expense, { onDelete: 'CASCADE' })
+    group: Groups;
 
-    @OneToMany(()=>ExpenseParticipant,participant=>participant.expense)
-    expenseParticipant:ExpenseParticipant[];
-
-    
+    @OneToMany(() => ExpenseParticipant, participant => participant.expense, { cascade: true })
+    expenseParticipant: ExpenseParticipant[];
 
     @CreateDateColumn()
-    createdAt:Date
+    createdAt: Date;
 
     @UpdateDateColumn()
-    updatedAt:Date
+    updatedAt: Date;
 
     @DeleteDateColumn()
-    deletedAt:Date
-
-
+    deletedAt: Date;
 }
+

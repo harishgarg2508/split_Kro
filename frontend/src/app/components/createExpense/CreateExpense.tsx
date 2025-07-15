@@ -19,6 +19,9 @@ import { z } from 'zod';
 import SelectUser from './SelectUser';
 import ChooseExpenseCategory from './ChooseExpenscategory';
 import CreateParticipants from './CreateParticipants';
+import { toast,Toaster } from 'sonner';
+import { sendMailToUser } from '../sendMail/SendMailThunk';
+import { stat } from 'fs';
 
 type ExpenseFormType = z.infer<typeof expenseSchema>;
 
@@ -27,6 +30,7 @@ export default function CreateExpenseButton() {
 
   const dispatch = useAppDispatch();
   const groupId = useAppSelector((state) => state.listAllGroups.selectedGroupId);
+  const groupMemberMail = useAppSelector((state) => state.getAllMembers.groupmembers.map(member => member.user.email));
 
   const methods = useForm<ExpenseFormType>({
     resolver: zodResolver(expenseSchema),
@@ -59,12 +63,17 @@ export default function CreateExpenseButton() {
       return;
     }
 
-    // ✅ Ensure participants is always an array
     dispatch(createExpense({ 
       ...data, 
       groupId,
       participants: data.participants || [] 
     }));
+      
+    toast.success('Expense created successfully!');
+    dispatch(sendMailToUser(groupMemberMail));
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 2000);
     handleClose();
     reset();
   };
@@ -82,7 +91,6 @@ export default function CreateExpenseButton() {
         <DialogContent sx={{ paddingBottom: 0 }}>
           <DialogContentText>Enter expense details</DialogContentText>
 
-          {/* ✅ Wrap once around the whole form */}
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitData)} noValidate>
               <TextField
@@ -126,6 +134,7 @@ export default function CreateExpenseButton() {
             </form>
           </FormProvider>
         </DialogContent>
+        <Toaster position="top-right" />
       </Dialog>
     </React.Fragment>
   );

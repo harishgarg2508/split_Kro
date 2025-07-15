@@ -1,4 +1,3 @@
-// src/app/redux/slices/login.Slice.ts
 
 import { axiosInstance, Credentials, UserState } from "@/app/utils";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
@@ -20,6 +19,11 @@ const initialState: UserState = {
   name: '',
   email: '',
   error: '',
+  createdAt: '',
+  updatedAt: '',
+  avatar: '',
+
+  
 };
 
 const loginSlice = createSlice({
@@ -33,6 +37,7 @@ const loginSlice = createSlice({
       state.email = '';
       state.token = '';
       state.error = '';
+      state.isLoading = false;
     },
   },
   extraReducers: (builder) => {
@@ -46,6 +51,9 @@ const loginSlice = createSlice({
       state.userId = action.payload.userId;
       state.name = action.payload.name;
       state.email = action.payload.email;
+      state.createdAt = action.payload.createdAt;
+      state.updatedAt = action.payload.updatedAt;
+      state.avatar = action.payload.avatar;
       state.isLoading = false;
       state.error = '';
     });

@@ -1,0 +1,68 @@
+services:
+  frontend:
+    build: ./frontend
+    container_name: frontend_container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    container_name: backend_container
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=harish
+      - DATABASE_NAME=harish
+      - JWT_SECRET=secret
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_container
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: harish@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: harish
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=harish
+      - POSTGRES_DB=harish
+    ports:
+      - "5440:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog_container
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  db_data:

@@ -12,6 +12,9 @@ import {
   CardContent,
   Chip
 } from "@mui/material";
+import { deleteExpense } from "./deleteExpenseThunk";
+import { toast } from "sonner";
+import { set } from "zod";
 
 export default function ExpensesPage() {
   const dispatch = useAppDispatch();
@@ -45,7 +48,19 @@ export default function ExpensesPage() {
   };
 
   const handleDelete = (expenseId: number) => {
-    console.log("Delete expense:", expenseId);
+    dispatch(deleteExpense(expenseId))
+      .then(() => {
+      toast.success("Expense deleted successfully");
+      setTimeout(()=>{
+        window.location.reload();
+
+      },2000)
+    })
+      .catch((error) => {
+        toast.error("Failed to delete expense: " + error.message);
+      });
+
+ 
   };
 
   const calculateUserTotal = (expense: any) => {
@@ -140,7 +155,6 @@ export default function ExpensesPage() {
                       )}
                     </Box>
 
-                    {/* Text-based action buttons instead of icons */}
                     <Box mt={2} display="flex" flexDirection="column" gap={1}>
                       <Button 
                         variant="text" 

@@ -1,5 +1,3 @@
-// src/app/components/Navbar.tsx
-
 'use client'
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -16,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { logout } from '../redux/slices/login.Slice';
 import { useRouter } from 'next/navigation';
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['settlements'];
 const settings = ['Profile', 'Logout'];
 
 const Navbar = () => {
@@ -25,7 +23,9 @@ const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const router = useRouter()
 
+  const userImage = useAppSelector((state) => state.user.email.split('@')[0].toUpperCase().split('')[0]);
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    router.push('/settlement');
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -47,6 +47,11 @@ const Navbar = () => {
     router.push('/login');
   };
 
+  const handleProfile = () => {
+    router.push('/userprofile');
+    handleCloseUserMenu();
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -66,7 +71,7 @@ const Navbar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            SPLITKRO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -136,7 +141,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={userImage} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -155,9 +160,7 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={() => {
-                handleCloseUserMenu();
-              }}>
+              <MenuItem onClick={handleProfile}>
                 <Typography textAlign="center">{settings[0]}</Typography>
               </MenuItem>
               <MenuItem onClick={handleLogout}>
@@ -172,3 +175,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
