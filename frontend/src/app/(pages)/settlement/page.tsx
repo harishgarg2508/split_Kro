@@ -50,10 +50,10 @@ export default function Settlement() {
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD'
-    }).format(amount / 100); 
+      currency: 'INR'
+    }).format(amount ); 
   };
 
   const getStatusChip = (paid: number, owed: number) => {
