@@ -4,12 +4,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const loginUser = createAsyncThunk(
   'loginUser',
-  async (data: Credentials) => {
-    const response = await axiosInstance.post('/auth/login', data);
-    return response.data;
-    
+  async (data: Credentials, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post('/auth/login', data);
+      document.cookie = `access_token=${response.data.token}; path=/; max-age=86400`;
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || 'Login failed');
+    }
   }
 );
+
 
 const initialState: UserState = {
   isLoggedIn: false,

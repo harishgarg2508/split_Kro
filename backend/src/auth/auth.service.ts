@@ -1,10 +1,10 @@
-import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, Res, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { UserRepository } from 'src/repository/user.repository';
 import { HashingService } from 'src/hashing/hashing.service';
 import { SignUpDto } from './dto/signup.dto';
 import { JwtService } from '@nestjs/jwt';
-import { access } from 'fs';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +26,7 @@ export class AuthService {
     return user;
   }
 
-  async loginUser(credentials: LoginDto) {
+  async loginUser(credentials: LoginDto, @Res({ passthrough: true }) response: Response) {
     const { email, password } = credentials
     console.log("credentials:", credentials)
     const user = await this.userRepository.findOne({ where: { email } })
@@ -42,11 +42,13 @@ export class AuthService {
     }
     const payload = { id: user.id, email: user.email, name: user.name }
     console.log(user)
+    const access_token = await this.jwtService.signAsync(payload)
+    response.cookie('access_token', access_token, { httpOnly: true, maxAge: 60 * 60 * 1000 })
     return {
       name: user.name,
       userId: user.id,
       email: user.email,
-      token: await this.jwtService.signAsync(payload)
+      token: access_token
 
     }
 
