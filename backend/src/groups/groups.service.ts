@@ -21,7 +21,17 @@ export class GroupsService {
     
   }
 
-  findAll() {
+  async getGroupSummary(groupId:number){
+    const group = await this.groupsRepository.findOne({ where: { id: groupId } });
+    if(!group){
+      throw new NotFoundException(`Group with ${groupId} not found`)
+
+    }
+    return this.groupsRepository.getGroupSummary(groupId)
+
+  }
+
+  getAllGroups() {
     return this.groupsRepository.retrieveAllGroups();
   }
 

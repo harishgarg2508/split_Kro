@@ -42,7 +42,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    document.cookie = 'access_token=; path=/; max-age=0';
+    document.cookie = 'token=; path=/; max-age=0';
     handleCloseUserMenu();
     
     router.push('/login');

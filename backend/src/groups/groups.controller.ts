@@ -13,9 +13,14 @@ export class GroupsController {
   }
 
   @Get()
-  findAll() {
-    return this.groupsService.findAll();
+  getAllGroups() {
+    return this.groupsService.getAllGroups();
   }
+
+  @Get('summary/:id')
+  getGroupSummary(@Param('groupId') groupId:number){
+    return this.groupsService.getGroupSummary(groupId)
+    }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

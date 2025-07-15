@@ -26,7 +26,7 @@ export class AuthService {
     return user;
   }
 
-  async loginUser(credentials: LoginDto, @Res({ passthrough: true }) response: Response) {
+  async loginUser(credentials: LoginDto,  response: Response) {
     const { email, password } = credentials
     console.log("credentials:", credentials)
     const user = await this.userRepository.findOne({ where: { email } })
@@ -42,8 +42,12 @@ export class AuthService {
     }
     const payload = { id: user.id, email: user.email, name: user.name }
     console.log(user)
-    const access_token = await this.jwtService.signAsync(payload)
-    response.cookie('access_token', access_token, { httpOnly: true, maxAge: 60 * 60 * 1000 })
+   const access_token = await this.jwtService.signAsync(payload);
+
+    response.cookie('token', access_token, {
+      maxAge: 60 * 60 * 1000,
+      secure: false,
+    });
     return {
       name: user.name,
       userId: user.id,

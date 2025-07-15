@@ -27,5 +27,21 @@ export class GroupsRepository extends Repository<Groups> {
       relations: ['groupsMember'],
     });
   }
+
+  async getGroupSummary(groupId:number){
+
+    return this.findOne({
+      where: { id: groupId },
+      relations: [
+        'groupsMember',
+        'groupsMember.user',
+        'category',
+        'expense',
+        'expense.expenseParticipant',
+        'expense.expenseParticipant.user',
+      ],
+    });
+
+  }
 }
 

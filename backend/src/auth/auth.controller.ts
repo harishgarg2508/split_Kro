@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -22,8 +24,8 @@ export class AuthController {
   }
 
   @Post('login')
-  loginUser(@Body() credentials: LoginDto) {
-    return this.authService.loginUser(credentials);
+  loginUser(@Body() credentials: LoginDto ,@Res({passthrough:true}) response:Response) {
+    return this.authService.loginUser(credentials,response);
   }
 
   @Get()
